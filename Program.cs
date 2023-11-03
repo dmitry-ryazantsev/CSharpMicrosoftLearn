@@ -1,3 +1,3 @@
-﻿int saleAmount = 1001;
-int discount = saleAmount > 1000 ? 100 : 50;
-Console.WriteLine($"Discount: {discount}");
+﻿Random random = new Random();
+int coinFlip = random.Next(0, 2);
+Console.WriteLine((coinFlip == 0) ? "heads" : "tails");
