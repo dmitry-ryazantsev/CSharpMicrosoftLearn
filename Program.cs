@@ -1,3 +1,19 @@
-﻿Random random = new Random();
-int coinFlip = random.Next(0, 2);
-Console.WriteLine((coinFlip == 0) ? "heads" : "tails");
+﻿using System.Security;
+
+string permission = "Admin|Manager";
+int level = 55;
+
+if (permission.Contains("Admin") && level > 55)
+    Console.WriteLine("Welcome, Super Admin user.");
+
+else if (permission.Contains("Admin") && level <= 55)
+    Console.WriteLine("Welcome, Admin user.");
+
+else if (permission.Contains("Manager") && level >= 20)
+    Console.WriteLine("Contact an Admin for access.");
+
+else if (permission.Contains("Manager") && level < 20)
+    Console.WriteLine("You do not have sufficient privileges.");
+
+else if (!permission.Contains("Manager") || !permission.Contains("Admin"))
+    Console.WriteLine("You do not have sufficient privileges.");
