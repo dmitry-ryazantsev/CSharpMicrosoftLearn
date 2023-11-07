@@ -1,18 +1,26 @@
-﻿Random dice = new Random();
-int heroHealthPoints = 10;
-int monsterHealthPoitns = 10;
+﻿string? readResult;
+int numericValue = 0;
+bool validNumber = false;
 
-while (heroHealthPoints > 0 && monsterHealthPoitns > 0)
+Console.WriteLine("Enter an integer value between 5 and 10");
+
+do
 {
-    int attack = dice.Next(1, 11);
-    monsterHealthPoitns -= attack;
-    Console.WriteLine($"Monster was damaged and lost {attack} health and now has {monsterHealthPoitns} health");
+    readResult = Console.ReadLine();
+    if (readResult != null)
+    {
+        validNumber = int.TryParse(readResult, out numericValue);
+        if (validNumber)
+        {
+            if (numericValue < 5 || numericValue > 10)
+            {
+                validNumber = false;
+                Console.WriteLine($"You entered {readResult}. Please enter a number between 5 and 10.");
+            }
+        }
+        else
+            Console.WriteLine("Sorry, you entered an invalid number, please try again.");
+    }
+} while (validNumber == false);
 
-    if (monsterHealthPoitns <= 0) break;
-
-    attack = dice.Next(1, 11);
-    heroHealthPoints -= attack;
-    Console.WriteLine($"Hero was damaged and lost {attack} health and now has {heroHealthPoints} health");
-}
-
-Console.WriteLine(heroHealthPoints > monsterHealthPoitns ? "Hero wins!" : "Monster wins!");
+Console.WriteLine($"Your input value ({numericValue}) has been accepted.");
