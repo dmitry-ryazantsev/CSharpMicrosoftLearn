@@ -1,23 +1,28 @@
-﻿string[] roles = new string[] { "administrator", "manager", "user" };
-string? readResult;
-string roleName = "";
-bool validString = false;
+﻿string[] myStrings = new string[2] { "I like pizza. I like roast chicken. I like salad", "I like all three of the menu choices" };
+int stringsCount = myStrings.Length;
 
-Console.WriteLine("Enter your role name (Administrator, Manager, or User)");
-
-while (validString == false)
+for (int i = 0; i < stringsCount; i++)
 {
-    readResult = Console.ReadLine();
-    if (readResult != null)
-    {
-        roleName = readResult.ToLower().Trim();
-        if (roles.Contains(roleName))
-        {
-            validString = true;
-        }
-        else
-            Console.WriteLine($"The role name that you entered, '{readResult}', is not valid.");
-    }
-}
+    string myString = myStrings[i];
+    int periodLocation = myString.IndexOf(".");
+    string mySentence;
 
-Console.WriteLine($"Your input value ({roleName}) has been accepted.");
+    // extract sentences from each string and display them one at a time
+    while (periodLocation != -1)
+    {
+        // remove everything after the first period
+        mySentence = myString.Remove(periodLocation);
+
+        // the remainder of myString is the string value to the right of the location with any leading white-space removed
+        myString = myString.Substring(periodLocation + 1).TrimStart();
+
+        // update the comma location and increment the counter
+        periodLocation = myString.IndexOf(".");
+
+        Console.WriteLine(mySentence);
+    }
+
+    // prints the last two sentences
+    mySentence = myString.Trim();
+    Console.WriteLine(mySentence);
+}
