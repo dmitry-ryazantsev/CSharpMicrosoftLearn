@@ -260,7 +260,44 @@ do
 
         case "3":
             // Ensure animal ages and physical descriptions are complete
-            Console.WriteLine("Challenge Project - please check back soon to see progress.");
+            for (int i = 0; i < ourAnimals.GetLength(0); i++)
+            {
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 2] == "Age: ?" && ourAnimals[i, 4] == "Physical description: ")
+                {
+                    do
+                    {
+                        validEntry = false;
+                        int petAge;
+
+                        Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
+                        readResult = Console.ReadLine();
+                        if (readResult != null)
+                        {
+                            animalAge = readResult;
+                            validEntry = int.TryParse(animalAge, out petAge);
+                            if (validEntry)
+                            {
+                                ourAnimals[i, 2] = "Age: " + petAge;
+                            }
+                        }
+                    } while (validEntry == false);
+
+                    do
+                    {
+                        Console.WriteLine($"Enter a physical description for {ourAnimals[i, 0]} (size, color, breed, gender, weight, housebroken)");
+                        readResult = Console.ReadLine();
+                        if (readResult != null)
+                        {
+                            animalPhysicalDescription = readResult.ToLower();
+                            if (animalPhysicalDescription != "")
+                            {
+                                ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+                            }
+                        }
+                    } while (animalPhysicalDescription == "");
+                }
+            }
+            Console.WriteLine("Age and physical description fields are complete for all of our friends.");
             Console.WriteLine("Press the Enter key to continue.");
             readResult = Console.ReadLine();
             break;
