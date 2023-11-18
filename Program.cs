@@ -10,6 +10,10 @@ string animalNickname = "";
 int maxPets = 8;
 string? readResult;
 string menuSelection = "";
+int petCount = 0;
+string anotherPet = "y";
+bool validEntry = false;
+int petAge = 0;
 
 // array used to store runtime data, there is no persisted data
 string[,] ourAnimals = new string[maxPets, 6];
@@ -119,9 +123,6 @@ do
 
         case "2":
             // Add a new animal friend to the ourAnimals array
-            string anotherPet = "y";
-            int petCount = 0;
-
             for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
                 if (ourAnimals[i, 0] != "ID #: ")
@@ -135,7 +136,6 @@ do
                 Console.WriteLine($"We currently have {petCount} pets that need homes. We can manage {maxPets - petCount} more.");
             }
 
-            bool validEntry = false;
             do
             {
                 Console.WriteLine("\n\rEnter 'dog' or 'cat' to begin a new entry");
@@ -160,7 +160,6 @@ do
             // get the pet's age. can be ? at initial entry. 
             do
             {
-                int petAge;
                 Console.WriteLine("Enter the pet's age or enter ? if unknown");
                 readResult = Console.ReadLine();
 
@@ -262,13 +261,10 @@ do
             // Ensure animal ages and physical descriptions are complete
             for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
-                if (ourAnimals[i, 0] != "ID #: " && (ourAnimals[i, 2] == "Age: ?" || ourAnimals[i, 4] == "Physical description: "))
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 2] == "Age: ?")
                 {
                     do
                     {
-                        validEntry = false;
-                        int petAge;
-
                         Console.WriteLine($"Enter an age for {ourAnimals[i, 0]}");
                         readResult = Console.ReadLine();
                         if (readResult != null)
@@ -281,7 +277,10 @@ do
                             }
                         }
                     } while (validEntry == false);
+                }
 
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 4] == "Physical description: ")
+                {
                     do
                     {
                         Console.WriteLine($"Enter a physical description for {ourAnimals[i, 0]} (size, color, breed, gender, weight, housebroken)");
@@ -307,7 +306,7 @@ do
             // Ensure animal nicknames and personality descriptions are complete
             for (int i = 0; i < ourAnimals.GetLength(0); i++)
             {
-                if (ourAnimals[i, 0] != "ID #: " && (ourAnimals[i, 3] == "Nickname: " || ourAnimals[i, 5] == "Personality: "))
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 3] == "Nickname: ")
                 {
                     do
                     {
@@ -322,7 +321,10 @@ do
                             }
                         }
                     } while (animalNickname == "");
+                }
 
+                if (ourAnimals[i, 0] != "ID #: " && ourAnimals[i, 5] == "Personality: ")
+                {
                     do
                     {
                         Console.WriteLine($"Enter a personality description for {ourAnimals[i, 0]} (likes or dislikes, tricks, energy level)");
