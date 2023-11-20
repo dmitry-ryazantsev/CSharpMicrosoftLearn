@@ -1,14 +1,22 @@
-﻿string value = "102";
-int result;
+﻿// Running the program in en-US culture setting to handle a period as the decimal separator
+using System.Globalization;
+CultureInfo.CurrentCulture = new CultureInfo("en-US");
 
-if (int.TryParse(value, out result))
+string[] values = { "12.3", "45", "ABC", "11", "DEF" };
+string message = "";
+float total = 0.0f;
+
+foreach (string value in values)
 {
-    Console.WriteLine($"Measurement: {result}");
-}
-else
-{
-    Console.WriteLine("Unable to report the measurement");
+    if (float.TryParse(value, out float number))
+    {
+        total += number;
+    }
+    else
+    {
+        message += value;
+    }
 }
 
-if (result > 0)
-    Console.WriteLine($"Measurement (w/ offset): {50 + result}");
+Console.WriteLine($"Message: {message}");
+Console.WriteLine($"Total: {total}");
