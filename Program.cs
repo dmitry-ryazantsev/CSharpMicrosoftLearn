@@ -1,11 +1,5 @@
-﻿string orderStream = "B123,C234,A345,C15,B177,G3003,C235,B179";
-string[] orderIDs = orderStream.Split(',');
-Array.Sort(orderIDs);
+﻿decimal measurement = 123456.78912m;
+Console.WriteLine($"Measurement: {measurement:N} units");
 
-foreach (string order in orderIDs)
-{
-    if (order.Length != 4)
-        Console.WriteLine($"{order} \t- Error");
-    else
-        Console.WriteLine(order);
-}
+decimal tax = .36785m;
+Console.WriteLine($"Tax rate: {tax:P}");
