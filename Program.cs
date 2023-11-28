@@ -1,32 +1,32 @@
-﻿string message = "(What if) I have [different symbols] but every {open symbol} needs a [matching closing symbol]?";
+﻿const string input = "<div><h2>Widgets &trade;</h2><span>5000</span></div>";
 
-char[] openSymbols = { '[', '{', '(' };
-int closingPosition = 0;
+string quantity;
+string output;
 
-while (true)
-{
-    int openingPosition = message.IndexOfAny(openSymbols, closingPosition);
-    if (openingPosition == -1) break;
+// Retrieving quantity between the span tag
+const string openSpan = "<span>";
+const string closeSpan = "</span>";
 
-    string currentSymbol = message.Substring(openingPosition, 1);
-    char matchingSymbol = ' ';
+int openingSpanPosition = input.IndexOf(openSpan);
+int closingSpanPosition = input.IndexOf(closeSpan);
 
-    switch (currentSymbol)
-    {
-        case "[":
-            matchingSymbol = ']';
-            break;
-        case "{":
-            matchingSymbol = '}';
-            break;
-        case "(":
-            matchingSymbol = ')';
-            break;
-    }
+openingSpanPosition += openSpan.Length;
+int quantityLength = closingSpanPosition - openingSpanPosition;
 
-    openingPosition += 1;
-    closingPosition = message.IndexOf(matchingSymbol, openingPosition);
-    int length = closingPosition - openingPosition;
+quantity = input.Substring(openingSpanPosition, quantityLength);
 
-    Console.WriteLine(message.Substring(openingPosition, length));
-}
+// Removing the div tag and replacing &trade with &reg
+const string openDiv = "<div>";
+const string closeDiv = "</div>";
+
+int openingDivPosition = input.IndexOf(openDiv);
+int openDivLength = openDiv.Length;
+output = input.Remove(openingDivPosition, openDivLength);
+
+int closingDivPosition = output.IndexOf(closeDiv);
+output = output.Remove(closingDivPosition);
+
+output = output.Replace("&trade", "&reg");
+
+Console.WriteLine($"Quantity: {quantity}");
+Console.WriteLine($"Output: {output}");
