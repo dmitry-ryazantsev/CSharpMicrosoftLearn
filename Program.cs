@@ -1,46 +1,43 @@
-﻿int target = 30;
-int[] coins = new int[] { 5, 5, 50, 25, 25, 10, 5 };
-int[,] result = TwoCoins(coins, target);
+﻿Random random = new Random();
 
-if (result.Length == 0)
+Console.WriteLine("Would you like to play? (Y/N)");
+if (ShouldPlay())
 {
-    Console.WriteLine("No two coins make change");
+    PlayGame();
 }
-else
+
+void PlayGame()
 {
-    Console.WriteLine("Change found at positions:");
-    for (int i = 0; i < result.GetLength(0); i++)
+    var play = true;
+
+    while (play)
     {
-        if (result[i, 0] == -1)
-        {
-            break;
-        }
-        Console.WriteLine($"{result[i, 0]},{result[i, 1]}");
+        var target = random.Next(1, 6);
+        var roll = random.Next(1, 7);
+
+        Console.WriteLine($"Roll a number greater than {target} to win!");
+        Console.WriteLine($"You rolled a {roll}");
+        WinOrLose(target, roll);
+        Console.WriteLine("\nPlay again? (Y/N)");
+
+        play = ShouldPlay();
     }
 }
 
-int[,] TwoCoins(int[] coins, int target)
+bool ShouldPlay()
 {
-    int[,] result = { { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 }, { -1, -1 } };
-    int count = 0;
+    string? response = Console.ReadLine();
 
-    for (int curr = 0; curr < coins.Length; curr++)
+    if (response != null)
     {
-        for (int next = curr + 1; next < coins.Length; next++)
-        {
-            if (coins[curr] + coins[next] == target)
-            {
-                result[count, 0] = curr;
-                result[count, 1] = next;
-                count++;
-            }
-
-            if (count == result.GetLength(0))
-            {
-                return result;
-            }
-        }
+        return response.ToLower().Trim().Equals("y");
     }
 
-    return (count == 0) ? new int[0, 0] : result;
+    return false;
+}
+
+void WinOrLose(int target, int roll)
+{
+    string result = (roll > target) ? "You win!" : "You lose!";
+    Console.WriteLine(result);
 }
