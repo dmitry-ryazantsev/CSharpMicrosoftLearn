@@ -1,43 +1,25 @@
-﻿Random random = new Random();
-
-Console.WriteLine("Would you like to play? (Y/N)");
-if (ShouldPlay())
+﻿string[] pettingZoo =
 {
-    PlayGame();
-}
+    "alpacas", "capybaras", "chickens", "ducks", "emus", "geese",
+    "goats", "iguanas", "kangaroos", "lemurs", "llamas", "macaws",
+    "ostriches", "pigs", "ponies", "rabbits", "sheep", "tortoises",
+};
 
-void PlayGame()
+RandomizeAnimals();
+// string[,] group = AssignGroup();
+Console.WriteLine("School A");
+// PrintGroup(group);
+
+void RandomizeAnimals()
 {
-    var play = true;
+    Random random = new Random();
 
-    while (play)
+    for (int i = 0; i < pettingZoo.Length; i++)
     {
-        var target = random.Next(1, 6);
-        var roll = random.Next(1, 7);
+        int r = random.Next(i, pettingZoo.Length);
 
-        Console.WriteLine($"Roll a number greater than {target} to win!");
-        Console.WriteLine($"You rolled a {roll}");
-        WinOrLose(target, roll);
-        Console.WriteLine("\nPlay again? (Y/N)");
-
-        play = ShouldPlay();
+        string temp = pettingZoo[i];
+        pettingZoo[i] = pettingZoo[r];
+        pettingZoo[r] = temp;
     }
-}
-
-bool ShouldPlay()
-{
-    string? response = Console.ReadLine();
-
-    if (response != null)
-    {
-        return response.ToLower().Trim().Equals("y");
-    }
-
-    return false;
-}
-
-void WinOrLose(int target, int roll)
-{
-    string result = (roll > target) ? "You win!" : "You lose!";
-    Console.WriteLine(result);
 }
