@@ -33,16 +33,30 @@ while (!shouldExit)
         Console.WriteLine("Console was resized. Program exiting.");
         shouldExit = true;
     }
-
-    Move();
-    if (hasConsumedFood())
+    else
     {
-        ChangePlayer();
-        ShowFood();
+        if (GoFaster())
+        {
+            Move(speed: 3);
+        }
+        else if (ShouldFreeze())
+        {
+            FreezePlayer();
+        }
+        else
+        {
+            Move();
+        }
+
+        if (ConsumedFood())
+        {
+            ChangePlayer();
+            ShowFood();
+        }
     }
 }
 
-bool hasConsumedFood()
+bool ConsumedFood()
 {
     return playerX == foodX && playerY == foodY;
 }
@@ -76,6 +90,24 @@ void ChangePlayer()
     Console.Write(player);
 }
 
+bool GoFaster()
+{
+    if (player == states[1])
+    {
+        return true;
+    }
+    return false;
+}
+
+bool ShouldFreeze()
+{
+    if (player == states[2])
+    {
+        return true;
+    }
+    return false;
+}
+
 // Temporarily stops the player from moving
 void FreezePlayer()
 {
@@ -84,7 +116,7 @@ void FreezePlayer()
 }
 
 // Reads directional input from the Console and moves the player
-void Move(bool nondirectionalKeysExit = false)
+void Move(bool nondirectionalKeysExit = true, int speed = 1)
 {
     int lastX = playerX;
     int lastY = playerY;
@@ -98,10 +130,10 @@ void Move(bool nondirectionalKeysExit = false)
             playerY++;
             break;
         case ConsoleKey.LeftArrow:
-            playerX--;
+            playerX -= speed;
             break;
         case ConsoleKey.RightArrow:
-            playerX++;
+            playerX += speed;
             break;
         case ConsoleKey.Escape:
             shouldExit = true;
