@@ -35,6 +35,16 @@ while (!shouldExit)
     }
 
     Move();
+    if (hasConsumedFood())
+    {
+        ChangePlayer();
+        ShowFood();
+    }
+}
+
+bool hasConsumedFood()
+{
+    return playerX == foodX && playerY == foodY;
 }
 
 // Returns true if the Terminal was resized 
