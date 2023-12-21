@@ -1,40 +1,52 @@
-﻿/* 
-This code uses a names array and corresponding methods to display
-greeting messages
-*/
-
-string[] names = new string[] { "Sophia", "Andrew", "AllGreetings" };
-
-string messageText = "";
-
-foreach (string name in names)
+﻿// In a checked context, the conversion succeeds
+// if the source value is within the range of the destination type
+checked
 {
-    if (name == "Sophia")
+    try
     {
-        messageText = SophiaMessage();
+        int num1 = int.MaxValue;
+        int num2 = int.MaxValue;
+        int result = num1 + num2;
+        Console.WriteLine("Result: " + result);
     }
-    else if (name == "Andrew")
+    catch (OverflowException ex)
     {
-        messageText = AndrewMessage();
+        Console.WriteLine("Error: The number is too large to be represented as an integer. " + ex.Message);
     }
-    else if (name == "AllGreetings")
-    {
-        messageText = SophiaMessage();
-        messageText = messageText + "\n\r" + AndrewMessage();
-    }
-
-    Console.WriteLine(messageText + "\n\r");
 }
 
-bool pauseCode = true;
-while (pauseCode == true) ;
-
-static string SophiaMessage()
+try
 {
-    return "Hello, my name is Sophia.";
+    string? str = null;
+    int length = str.Length;
+    Console.WriteLine("String Length: " + length);
+}
+catch (NullReferenceException ex)
+{
+    Console.WriteLine("Error: The reference is null. " + ex.Message);
 }
 
-static string AndrewMessage()
+try
 {
-    return "Hi, my name is Andrew. Good to meet you.";
+    int[] numbers = new int[5];
+    numbers[5] = 10;
+    Console.WriteLine("Number at index 5: " + numbers[5]);
 }
+catch (IndexOutOfRangeException ex)
+{
+    Console.WriteLine("Error: Index out of range. " + ex.Message);
+}
+
+try
+{
+    int num3 = 10;
+    int num4 = 0;
+    int result2 = num3 / num4;
+    Console.WriteLine("Result: " + result2);
+}
+catch (DivideByZeroException ex)
+{
+    Console.WriteLine("Error: Cannot divide by zero. " + ex.Message);
+}
+
+Console.WriteLine("Exiting program.");
